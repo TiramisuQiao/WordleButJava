@@ -15,7 +15,7 @@ This Java application is a console-based representation of the popular game Word
 The game logic is implemented in the `GameBody` method, which serves up the user interface, handles user inputs, and provides feedback based on each guess. Game progress is tracked in terms of both letters guessed correctly and attempts taken. Feedback is given immediately after every guess to help the user make informed subsequent guesses. Once a game is completed (either the correct word has been guessed or all attempts have been used), the user is presented with the option to play again or quit.
 
 ## Requirements
-This application requires `Java SDK version 20`.
+This application requires `Java SDK version 8`.
 
 ## How to Run
 Compile and run the `Game` class in your favorite Java IDE or from the command line using `javac` and `java` respectively.
