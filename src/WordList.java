@@ -9,10 +9,10 @@ public class WordList {
      */
     private static final int MAX_WORDS = 100010;
     /**
-     * Trie data structure for storing words.
-     * Each node represents a character in the alphabet.
-     * The value at each node represents the index of the next node in the trie.
-     * The frequency of a word can be determined by traversing the trie from the root node to the node representing the last character of the word.
+     * The length of the word list.
+     * This variable represents the number of words in the word list.
+     * The word list is used in various methods for generating random words,
+     * querying word frequencies, and inserting words into a trie data structure.
      */
     private static final int WORD_LIST_LENGTH = 14855;
     private static int[][] wordListTrie = new int[MAX_WORDS][26];
