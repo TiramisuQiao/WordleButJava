@@ -23,12 +23,10 @@ public class WordList {
     private static int[] wordFrequency = new int[MAX_WORDS];
     /**
      * Represents an index of a word in a word list.
-     *
      * The wordIndex variable is used to keep track of the index of a word in a word list. It is a private static variable,
      * meaning it is associated with the WordList class itself rather than with any specific instance of the class. This
      * allows easy access to the wordIndex across different methods within the WordList class.
-     *
-     * The initial value of wordIndex is 0, indicating that the first word in the word list has an index of 0. As words are
+     *     * The initial value of wordIndex is 0, indicating that the first word in the word list has an index of 0. As words are
      * read and inserted into the wordListTrie data structure, the wordIndex is incremented to maintain the correct index
      * for the next word.
      */
