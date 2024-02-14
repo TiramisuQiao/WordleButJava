@@ -14,6 +14,7 @@ public class WordList {
      * The value at each node represents the index of the next node in the trie.
      * The frequency of a word can be determined by traversing the trie from the root node to the node representing the last character of the word.
      */
+    private static final int WORD_LIST_LENGTH = 14855;
     private static int[][] wordListTrie = new int[MAX_WORDS][26];
     /**
      * This variable represents the frequency of words in a word list.
@@ -39,7 +40,7 @@ public class WordList {
      * @return an array of words read from the file
      */
     private static String[] readWord(String pathname) {
-        String[] words = new String[14855];
+        String[] words = new String[WORD_LIST_LENGTH];
         int index = 0;
 
         try {
@@ -68,7 +69,7 @@ public class WordList {
     public static String RandomWord() {
         String[] words = readWord("wordlist.txt");
         Random random = new Random();
-        int index = random.nextInt(14855);
+        int index = random.nextInt(WORD_LIST_LENGTH);
         String answerWord = words[index];
         if (answerWord.isEmpty()) {
             return RandomWord();
@@ -121,7 +122,7 @@ public class WordList {
      */
     public static void gameLoader() {
         String[] words = readWord("wordlist.txt");
-        for (int i = 0; i < 14855; i = i + 1) {
+        for (int i = 0; i < WORD_LIST_LENGTH; i = i + 1) {
             insert(words[i].toCharArray());
         }
     }

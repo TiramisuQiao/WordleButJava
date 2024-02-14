@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="WordleGame">
     <output-path>$PROJECT_DIR$/out/artifacts/WordleGame</output-path>
     <root id="archive" name="WordleGame.jar">
-      <element id="module-output" name="Final_Proj_Wordle" />
+      <element id="module-output" name="WordleButJava" />
     </root>
   </artifact>
 </component>

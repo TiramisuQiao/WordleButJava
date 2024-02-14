@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Final_Proj_Wordle.iml" filepath="$PROJECT_DIR$/Final_Proj_Wordle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WordleButJava.iml" filepath="$PROJECT_DIR$/WordleButJava.iml" />
     </modules>
   </component>
 </project>
