@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -9,12 +11,11 @@ public class WordList {
      */
     private static final int MAX_WORDS = 100010;
     /**
-     * The length of the word list.
-     * This variable represents the number of words in the word list.
-     * The word list is used in various methods for generating random words,
-     * querying word frequencies, and inserting words into a trie data structure.
+     * Trie data structure for storing words.
+     * Each node represents a character in the alphabet.
+     * The value at each node represents the index of the next node in the trie.
+     * The frequency of a word can be determined by traversing the trie from the root node to the node representing the last character of the word.
      */
-    private static final int WORD_LIST_LENGTH = 14855;
     private static int[][] wordListTrie = new int[MAX_WORDS][26];
     /**
      * This variable represents the frequency of words in a word list.
@@ -39,18 +40,18 @@ public class WordList {
      * @param pathname the path to the file
      * @return an array of words read from the file
      */
-    private static String[] readWord(String pathname) {
-        String[] words = new String[WORD_LIST_LENGTH];
+    private static ArrayList<String> readWord(String pathname) {
+        ArrayList<String> words = new ArrayList<>();
         int index = 0;
 
         try {
             File file = new File(pathname);
             Scanner scanner = new Scanner(file);
 
-            while (scanner.hasNextLine() && index < words.length) {
+            while (scanner.hasNextLine()) {
                 String word = scanner.nextLine().trim();
                 if (word.length() == 5) {
-                    words[index++] = word;
+                    words.add(word);
                 }
             }
 
@@ -67,10 +68,10 @@ public class WordList {
      * @return a random word
      */
     public static String RandomWord() {
-        String[] words = readWord("wordlist.txt");
+        ArrayList<String> words = readWord("wordlist.txt");
         Random random = new Random();
-        int index = random.nextInt(WORD_LIST_LENGTH);
-        String answerWord = words[index];
+        int index = random.nextInt(words.size());
+        String answerWord = words.get(index);
         if (answerWord.isEmpty()) {
             return RandomWord();
         }
@@ -121,9 +122,9 @@ public class WordList {
      * @since 1.0
      */
     public static void gameLoader() {
-        String[] words = readWord("wordlist.txt");
-        for (int i = 0; i < WORD_LIST_LENGTH; i = i + 1) {
-            insert(words[i].toCharArray());
+        ArrayList<String> words = readWord("wordlist.txt");
+        for (int i = 0; i < words.size(); i = i + 1) {
+            insert(words.get(i).toCharArray());
         }
     }
 
