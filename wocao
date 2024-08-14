@@ -1,0 +1,90 @@
+from openai import OpenAI
+
+import serial
+
+client = OpenAI(
+    api_key="sk-CaxH4zXrd5BN9CNwgPnMbkkc9SaaZWRmFGxhwQN6iIFeYqXt",
+    base_url="https://api.moonshot.cn/v1",
+)
+def finger_set(finger_one, finger_two, finger_three, finger_four, finger_five):
+    ser = serial.Serial(port="COM3",
+                        baudrate=115200,
+                        bytesize=serial.SEVENBITS,
+                        parity=serial.PARITY_NONE,
+                        stopbits=serial.STOPBITS_TWO,
+                        timeout=0.5)
+    send_one = "set0, " + str(finger_one)
+    send_two = "set1, " + str(finger_two)
+    send_three = "set2, " + str(finger_three)
+    send_four = "set3, " + str(finger_four)
+    send_five = "set4, " + str(finger_five)
+    message = [send_one, send_two, send_three, send_four, send_five]
+    for msg in message:
+        write_len = ser.write(msg.encode('utf-8'))
+        print(msg)
+
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "finger_set",
+            "description": """ 
+				假肢灵巧手的操纵函数，函数需要传入五个具体参数，分别对应从大拇指到小拇指的五根手指，数值的大小代表手指的具体位置，位置从0到2000.其中2000代表完全伸直，
+				而0代表完全不伸直，但是建议的松弛数值为400，向这个函数传入数值便可以操纵假肢手的五根手指
+			""",
+            "parameters": {
+                "type": "object",
+                "required": ["finger_one","finger_two","finger_three","finger_four","finger_five"],
+                "properties": {
+                    "finger_one": {
+                        "type": "int",
+                        "description": """
+							大拇指的伸直力度
+						"""
+                    },
+                    "finger_two": {
+                        "type": "int",
+                        "description": """
+							食指的伸直力度
+						"""
+                    },
+                    "finger_three": {
+                        "type": "int",
+                        "description": """
+							中指的伸直力度
+						"""
+                    },
+                    "finger_four": {
+                        "type": "int",
+                        "description": """
+							无名指的伸直力度
+						"""
+                    },
+                    "finger_five": {
+                        "type": "int",
+                        "description": """
+							小拇指的伸直力度
+						"""
+                    }
+                }
+            }
+        }
+    }
+]
+
+if __name__ == '__main__':
+    # Move fingers
+
+    completion = client.chat.completions.create(
+        model="moonshot-v1-8k",
+        messages=[
+            {"role": "system",
+             "content": "你是智能手指位置标定助手，你需要根据用户给出的动作命令来操纵假肢灵巧手，具体每根手指的数值需要你自己完成标定，然后利用给出的工具传入到函数内"},
+            {"role": "user", "content": "请伸直中指完成测试"}
+        ],
+        temperature=0.3,
+        tools=tools,
+    )
+    print(completion.choices[0].model_dump_json(indent=4))
+
